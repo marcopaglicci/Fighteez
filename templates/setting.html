@@ -22,16 +22,8 @@
 <div class="container m-auto">
 
     <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a href="/">Home</a> / Account Setting /
-        <b>{{ user.username }}</b> / Profile </h1>
-    <!-- <ul class="mt-5 -mr-3 flex-nowrap lg:overflow-hidden overflow-x-scroll uk-tab">
-         <li class="uk-active"><a href="#">General</a></li>
-         <li><a href="#">Profile</a></li>
-         <li><a href="#">Privacy</a></li>
-         <li><a href="#">Notification</a></li>
-         <li><a href="#">Social links</a></li>
-         <li><a href="#">Billing</a></li>
-         <li><a href="#">Security</a></li>
-     </ul> -->
+        <b>{{ user.username }}</b> / <a href="/profile/{{ user.username }}">Profile</a> </h1>
+    
     <BR>
     <hr>
     <div class="grid lg:grid-cols-3 mt-12 gap-8">
@@ -40,135 +32,87 @@
             <p></p>
         </div>
 
-            <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
-                
-                <!-- "multipart/form-data" serve ad inviare tutti i dati nella form compresa l'immagine -->
-                <form action="" method="POST" enctype="multipart/form-data">
-                    {%  csrf_token %}
+        <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
 
-                    <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
 
 
                     <div>
                         <label for="">Profile Image</label>
-                        <img width="100" height="100" src="{{user_profile.profile_img.url}}"  alt="" />
+                        <img width="100" height="100" src="{{ user_profile.profile_img.url }}" alt=""/>
                         <input type="file" name="image" class="shadow-none bg-gray-100">
                     </div>
-                    <!--
-                    <div>
-                        <label for=""> First name</label>
-                        <input type="text" placeholder="Your name.." class="shadow-none bg-gray-100">
-                    </div>
-                    <div>
-                        <label for=""> Last name</label>
-                        <input type="text" placeholder="Your name.." class="shadow-none bg-gray-100">
-                     </div>
-
-                     <div class="col-span-2">
-                         <label for=""> Email</label>
-                         <input type="text" placeholder="Your name.." class="shadow-none bg-gray-100">
-                     </div>
-                     -->
+                    
                     <div class="col-span-2">
                         <label for="about">Bio</label>
-                        <textarea id="bio" name="bio" rows="3" class="shadow-none bg-gray-100" >{{user_profile.bio}}</textarea>
+                        <textarea id="bio" name="bio" rows="3"
+                                  class="shadow-none bg-gray-100">{{ user_profile.bio }}</textarea>
                     </div>
                     <div class="col-span-2">
                         <label for=""> Location</label>
-                        <input type="text" name="location" value="{{ user_profile.location }}" class="shadow-none bg-gray-100">
+                        <input type="text" name="location" value="{{ user_profile.location }}"
+                               class="shadow-none bg-gray-100">
                     </div>
 
-                    <!--
-                     <div>
-                        <label for=""> Working at</label>
-                        <input type="text" placeholder="" class="shadow-none bg-gray-100">
-                     </div>
-                     <div>
-                        <label for=""> Relationship </label>
-                        <select id="relationship" name="relationship"  class="shadow-none bg-gray-100">
-                         <option value="0">None</option>
-                         <option value="1">Single</option>
-                         <option value="2">In a relationship</option>
-                         <option value="3">Married</option>
-                         <option value="4">Engaged</option>
-                       </select>
-                     </div>
-                     -->
+                    <div class="col-span-2">
+                        <label for="discipline">Discipline</label>
+                        <select name="discipline" class="shadow-none bg-gray-100">
+                            <option value="Karate" {% if user_profile.discipline == 'Karate' %}selected{% endif %}>Karate</option>
+                            <option value="Judo" {% if user_profile.discipline == 'Judo' %}selected{% endif %}>Judo</option>
+                            <option value="Taekwondo" {% if user_profile.discipline == 'Taekwondo' %}selected{% endif %}>Taekwondo</option>
+                            <option value="Boxe" {% if user_profile.discipline == 'Boxe' %}selected{% endif %}>Boxe</option>
+                            <option value="Muay Thai" {% if user_profile.discipline == 'Muay Thai' %}selected{% endif %}>Muay Thai</option>
+                            <option value="MMA" {% if user_profile.discipline == 'MMA' %}selected{% endif %}>MMA</option>
+                            <option value="KickBoxe" {% if user_profile.discipline == 'KickBoxe' %}selected{% endif %}>KickBoxe</option>
+                            <option value="None" {% if user_profile.discipline == 'None' %}selected{% endif %}>None</option>
+                        </select>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="professional-fighter">Professional Fighter</label>
+                        <input type="checkbox" id="professional-fighter" name="professional_fighter" class="shadow-none bg-gray-100" {% if user_palmares.professional %}checked{% endif %} onchange="toggleProfessionalFighterFields()">
+                    </div>
+
+                    <div id="professional-fighter-fields" style="display: none;">
+                        <div class="col-span-2">
+                            <label for="fights">Number of Fights</label>
+                            <input type="number" id="fights" name="fights" class="shadow-none bg-gray-100" value="{{ user_palmares.fights }}">
+                        </div>
+                        <div class="col-span-2">
+                            <label for="wins">Wins</label>
+                            <input type="number" id="wins" name="wins" class="shadow-none bg-gray-100 " value="{{ user_palmares.wins }}">
+                        </div>
+                        <div class="col-span-2">
+                            <label for="losses">Losses</label>
+                            <input type="number" id="losses" name="losses" class="shadow-none bg-gray-100" value="{{ user_palmares.losses }}">
+                        </div>
+                        <div class="col-span-2">
+                            <label for="draws">Draws</label>
+                            <input type="number" id="draws" name="draws" class="shadow-none bg-gray-100" value="{{ user_palmares.draw }}">
+                        </div>
+                        <div class="col-span-2">
+                            <label for="federation">Fighting Federation</label>
+                            <input type="text" id="federation" name="federation" class="shadow-none bg-gray-100" value="{{ user_palmares.federation }}">
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-                    <button class="p-2 px-4 rounded bg-gray-50 text-red-500"> <a href="/">Home</a></button>
-                    <button type="submit" class="button bg-blue-700"> Save </button>
+                    <button class="p-2 px-4 rounded bg-gray-50 text-red-500"><a href="/">Home</a></button>
+                    <button type="submit" class="button bg-blue-700"> Save</button>
                 </div>
-                </form>
-            </div>
-        
-        <!--
-        <div>
-            <h3 class="text-xl mb-2"> Privacy</h3>
-            <p> </p>
-        </div>
-        <div class="bg-white rounded-md lg:shadow-lg shadow lg:p-6 p-4 col-span-2">
-
-        <div class="space-y-3">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h4> Who can follow me ?</h4>
-                    <div>  </div>
-                </div>
-                <div class="switches-list -mt-8 is-large">
-                    <div class="switch-container">
-                        <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="flex justify-between items-center">
-                <div>
-                    <h4> Show my activities ?</h4>
-                    <div>  </div>
-                </div>
-                <div class="switches-list -mt-8 is-large">
-                    <div class="switch-container">
-                        <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="flex justify-between items-center">
-                <div>
-                    <h4> Search engines?</h4>
-                    <div>  </div>
-                </div>
-                <div class="switches-list -mt-8 is-large">
-                    <div class="switch-container">
-                        <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="flex justify-between items-center">
-                <div>
-                    <h4> Allow Commenting?</h4>
-                    <div>  </div>
-                </div>
-                <div class="switches-list -mt-8 is-large">
-                    <div class="switch-container">
-                        <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
 
-        </div>
-         -->
-        <!-- TODO look out for privacy settings -->
         <br>
 
     </div>
 
 </div>
-
 
 
 <!-- Scripts
@@ -181,6 +125,23 @@
 
 
 <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+
+<script>
+    function toggleProfessionalFighterFields() {
+        var checkBox = document.getElementById("professional-fighter");
+        var fields = document.getElementById("professional-fighter-fields");
+        if (checkBox.checked === true){
+            fields.style.display = "block";
+        } else {
+            fields.style.display = "none";
+        }
+    }
+
+    window.onload = function() {
+        toggleProfessionalFighterFields(); // Aggiorna la visibilità dei campi iniziale
+    };
+</script>
+
 </body>
 
 </html>

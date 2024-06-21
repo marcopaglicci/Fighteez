@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'assets/images/favicon.png' %}" rel="icon" type="image/png">
+    <title>Settings</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+</head>
+<body class="bg-gray-100">
+
+<!-- Top bar -->
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="fixed top-0 left-0 right-0 bg-white shadow-md p-4 flex justify-between items-center">
+        <span class="text-xl font-semibold"><a href="/">Home</a></span>
+        {% if username == post.user %}
+            <button class="button bg-blue-700" type="submit" style="color:white; margin-left: auto; margin-right: 10px">
+                Save
+            </button>
+            <button class="button bg-blue-700" type="" style="color:white; "><a href="/delete?post_id={{ post.id }}">Delete</a>
+            </button>
+        {% endif %}
+    </div>
+
+    <!-- Post container -->
+    <div class="pt-16 mx-auto p-4" style="width: 50%;">
+        <div class="bg-white shadow rounded-md">
+            <!-- post header-->
+            <div class="flex justify-between items-center px-4 py-3">
+                <div class="flex flex-1 items-center space-x-4">
+                <span class="block capitalize font-semibold ">
+                    <a href="/profile/{{ post.user }}">@{{ post.user }}</a>
+                </span>
+                </div>
+                <div>
+                    <a href="#">
+                        <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 " ></i>
+                    </a>
+                    <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100" uk-drop="mode: hover;pos: top-right">
+                        <ul class="space-y-1">
+                        
+                            {% if post.user == user_profile.user.username %}
+                                <li>
+                                    <a href="/delete?post_id={{ post.id }}"
+                                       class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+                                        <i class="uil-trash-alt mr-1"></i>
+
+                                        Delete
+
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div uk-lightbox>
+                <a href="{{ post.image.url }}">
+                    <img src="{{ post.image.url }}" alt="">
+                </a>
+            </div>
+
+            <div class="py-3 px-4 space-y-3">
+                
+                <p>
+                    <a href="/profile/{{ post.user }}"><strong>{{ post.user }}</strong></a>
+                    {% if username == post.user %}
+                        <input type="text" value="{{ post.caption }}" id="new_caption" name="new_caption"
+                               class="bg-transparent max-h-10 shadow-none w-full px-4 py-2">
+                    {% else %}
+                        {{ post.caption }}
+                    {% endif %}
+
+                </p>
+                <!-- Comments section -->
+                <div class="py-3 px-4 space-y-3">
+                    {% if post.show_comments %}
+
+                        <ul>
+                            {% for comment in post.comments.all %}
+                                <li>
+                                    <strong>{{ comment.user }}</strong>: {{ comment.content }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <form id="comment" method="POST" action="{% url 'add_comment' post.id %}">
+                            {% csrf_token %}
+                            <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative " style="">
+                                <input type="text" id="content" name="content" placeholder="post a comment" class="bg-transparent max-h-10 shadow-none">
+                                <button type="submit" style="display: none;" ></button>
+                            </div>
+
+                        </form>
+                    {% endif %}
+                </div>
+                
+            </div>
+        
+        </div>
+    </div>
+</form>
+
+</body>
+<!-- Scripts
+   ================================================== -->
+<script src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'assets/js/uikit.js' %}"></script>
+<script src="{% static 'assets/js/simplebar.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+<script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+
+</html>

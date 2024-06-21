@@ -16,7 +16,7 @@ html,body{
 }
 
 .bio{
-    text-align: justify !important; width: 1100px; color: #000; font-family: calibri; margin-left:5%;text-decoration: none;outline: none;
+    text-align: justify !important; width: 30%; color: #000; font-family: calibri; margin-left:5%;text-decoration: none;outline: none;
 }
 
 body {
@@ -771,9 +771,10 @@ header.sticky {
 }
 
 .timeline-info {
-    background: ##b0b3b8 none repeat scroll 0 0;
+    background:#b0b3b8 none repeat scroll 0 0;
     display: block;
     line-height: 59px;
+
     width: 100%;
     color: #000;
 }
@@ -781,8 +782,9 @@ header.sticky {
 .timeline-info > ul {
     display: inline-block;
     list-style: outside none none;
+
     margin-bottom: 0;
-    padding-left: 20px;
+    padding-left: 10px;
     vertical-align: middle;
     width: 100%;
 }
@@ -817,12 +819,18 @@ header.sticky {
     right: 0;
 }
 
+.admin-name {
+    margin-bottom: 10px; /* Add spacing between items if needed */
+}
+
+
 .timeline-info .admin-name > h5 {
     color: pink;
     display: inline-block;
     font-size: 24px;
     font-weight: 500;
     margin-bottom: 0;
+    margin: 0;
     vertical-align: super;
 }
 
@@ -7319,7 +7327,7 @@ ul.offcanvas-menu ul {
     background: -o-linear-gradient(rgba(41, 112, 255, 0.75) 0%, rgba(248, 222, 96, 0.75) 100%);
     background: linear-gradient(rgba(41, 112, 255, 0.75) 0%, rgba(248, 222, 96, 0.75) 100%);
     -webkit-background-clip: text;
-    -moz-background-clip: text;
+    -moz-background-clip:  text;
     -ms-background-clip: text;
     -o-background-clip: text;
     background-clip: text;
@@ -10036,5 +10044,8 @@ aside.sidebar.full-style {
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
+
+
+
 
 
