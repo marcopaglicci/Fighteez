@@ -16,7 +16,25 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- modifiche allo stile per risolvere problema icona navigazione -->
+    <style>
+        .left-side form {
+            display: flex;
+            align-items: center; /* Allinea verticalmente al centro */
+        }
 
+        .left-side input[type="text"] {
+            margin-right: 5px; /* Spazio tra l'input e il bottone */
+        }
+
+        .left-side button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -28,7 +46,7 @@
                 {% csrf_token %}
 
 
-                <!--todo fix search style -->
+          
 
                 <input type="text" name="username" placeholder="Search for username..">&nbsp;
                 <button type="submit"><i class="fa fa-search fa-1x"></i></button>
@@ -86,7 +104,9 @@
                         </form>
 
                     </div>
-
+                    
+                    
+                    <!--Important-->
                     <div class="uk-flex uk-flex-column choose-upload" hidden>
                         <div class="mx-auto flex flex-col h-24 items-center justify-center relative w-full rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -96,6 +116,7 @@
                                       clip-rule="evenodd"/>
                             </svg>
                         </div>
+                        
                         <p class="my-3 leading-6"> Import videos from YouTube <br> Copy / Paste your video link here
                         </p>
                         <form class="uk-grid-small" uk-grid>

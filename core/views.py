@@ -21,14 +21,13 @@ import random
 # Create your views here.
 
 # Verify the user is already logged
-@login_required(login_url='signin')
+@login_required(login_url='signup')
 def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
 
     user_following_list = []
     feed = []
-    user_post_list = []
 
     user_posts = Post.objects.filter(user=request.user.username)
     user_following = FollowersCount.objects.filter(follower=request.user.username)
