@@ -42,13 +42,23 @@ Per eseguire il progetto in locale, segui questi passaggi:
 1. Clona il repository:
    git clone https://github.com/Marco-Paglicci/Fighteez.git
    cd Fighteez
-2. Crea un ambiente virtuale e attivalo:
+
+2.Modifica settings.py-> cambia le seguenti impostazioni per assicurarti il run in locale
+   -Cambia ALLOWED_HOST = ... in ALLOWED_HOSTS = []
+   -Cancella o Commenta (riga 90 settings.py):
+      database_url = os.environ.get("DATABASE_URL")
+      DATABASES["default"] = dj_database_url.parse(database_url)
+      
+3. Crea un ambiente virtuale e attivalo:
   python -m venv venv
   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+
 3.Installa le dipendenze:
   pip install -r requirements.txt
+  
 4.Applica le migrazioni al database:
   python manage.py migrate
+  
 5.Avvia il server di sviluppo:
   python manage.py runserver
 
