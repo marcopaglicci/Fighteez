@@ -68,7 +68,3 @@ Per qualsiasi domanda o suggerimento, non esitare a contattarmi via email: marco
 
 Grazie per aver scelto Fighteez! Unisciti alla nostra comunità e inizia a condividere la tua passione per gli sport di combattimento.
 
-Questo README fornisce una panoramica completa del progetto, le sue funzionalità principali, le tecnologie utilizzate e le istruzioni per l'installazione e il contributo. Puoi personalizzarlo ulteriormente secondo le tue esigenze.
-
-
-   
