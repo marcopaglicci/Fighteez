@@ -1,5 +1,6 @@
 # Fighteez
-IL codice è presente nel branch master
+Fighteez è un progetto universitario sullo sviluppo frontend e backend, l'obiettivo era quello di utilizzare framework come Django per un applicativo completo e funzionante caricabile online. 
+Per scelta personale ho deciso di sviluppare un Social Network che replicasse i piu comuni utilizzati oggi. Tutto il codice si trova nel branch master
 
 ## Descrizione
 Fighteez è un social network dedicato ai fighter professionisti e agli amanti degli sport di combattimento. La piattaforma consente agli utenti di connettersi, condividere esperienze, seguire i propri fighter preferiti e scoprire nuovi talenti.
